@@ -1,0 +1,1 @@
+C:\Users\naros\Documents\GitHub\Microsoft-Launch-IoT-Lab-2017\Source\Ex2\End\IoTWorkshop\IoTWorkshop.csproj;arm

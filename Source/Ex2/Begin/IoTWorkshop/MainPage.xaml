@@ -19,6 +19,8 @@
                 <ProgressBar x:Name="TempProgress" Value="0" Minimum="0" Maximum="60" Width="150"></ProgressBar>
                 <TextBlock x:Name="TempTextBox"></TextBlock>
             </StackPanel>
+            <Button x:Name="button" Content="Received Message" HorizontalAlignment="Center"  VerticalAlignment="Top"/>
+
         </StackPanel>
     </Grid>
 </Page>

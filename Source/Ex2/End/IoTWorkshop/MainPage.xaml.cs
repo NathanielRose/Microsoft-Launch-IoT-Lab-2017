@@ -10,7 +10,7 @@
 
     public sealed partial class MainPage : Page
     {
-        private const bool UseMockedSensors = false;
+        private const bool UseMockedSensors = true;
         private Random rnd;
         private FEZHAT hat;
         private DispatcherTimer timer;

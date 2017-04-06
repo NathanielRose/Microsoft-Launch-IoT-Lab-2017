@@ -10,7 +10,7 @@
 
 **Windows 10 IoT Core** is a version of **Windows 10** that is optimized for smaller devices with or without a display, and that runs on the **Raspberry Pi, Arrow DragonBoard & MinnowBoard MAX**. **Windows 10 IoT Core** utilizes the rich, extensible [Universal Windows Platform (UWP)](https://msdn.microsoft.com/library/windows/apps/dn726767.aspx) API for building great solutions.
 
-In this module you will use a Raspberry Pi device with [Windows 10 Iot Core](http://ms-iot.github.io/content/en-US/Downloads.htm) and a [FEZ HAT](https://www.ghielectronics.com/catalog/product/500) sensor hat. Using a Windows 10 Universal Application, the sensors get the raw data and format it into a JSON string. That string is then shuttled off to the [Azure IoT Hub](https://azure.microsoft.com/en-us/services/iot-hub/), where it gathers the data and is then displayed in an Azure website. Finally, you'll see how to send cloud-to-device messages to your device to command it.
+In this module you will use a Raspberry Pi device with [Windows 10 Iot Core](http://ms-iot.github.io/content/en-US/Downloads.htm) and a [FEZ HAT](https://www.ghielectronics.com/catalog/product/500) sensor hat (**If you are a Launch Event Attendee you will not be using the FEZ hat but simulated Temp Code on the Raspberry Pi Device**). Using a Windows 10 Universal Application, the sensors get the raw data and format it into a JSON string. That string is then shuttled off to the [Azure IoT Hub](https://azure.microsoft.com/en-us/services/iot-hub/), where it gathers the data and is then displayed in an Azure website. Finally, you'll see how to send cloud-to-device messages to your device to command it.
 
 
 <a name="Objectives"></a>
@@ -103,7 +103,7 @@ In this task, you'll setup your devices by following these steps:
 
 	_Networking page_
 
-1. On the networking screen, verify that IoT-Lab is the selected (checked) network profile. This network has been specifically configured to allow through the AMQP/AMQPS traffic required for communicating to Azure.
+1. On the networking screen, verify that MiFi network given at the beginning of the lab is the selected (checked) network profile. This network has been specifically configured to allow through the AMQP/AMQPS traffic required for communicating to Azure.
 
 <a name="Exercise2"></a>
 ### Exercise 2: Sending telemetry data to Azure IoT Hub ###
@@ -430,6 +430,7 @@ In this task, you'll add logic to process the messages received from the IoT Hub
 		}
 	}
 	````
+	
 
 1. Lastly, add the following piece of code to the _SetupHat_ method in order to initialize the timer used to poll for messages.
 
@@ -442,6 +443,26 @@ In this task, you'll add logic to process the messages received from the IoT Hub
 	````
 
 	> **Note:** The recommended interval for HTTP/1 message polling is 25 minutes. For debugging and demonstration purposes a 1 minute polling interval is fine (you can use an even smaller interval for testing), but bear it in mind for production development. Check this [article](https://azure.microsoft.com/en-us/documentation/articles/iot-hub-devguide/) for guidance. When AMQP becomes available for the IoT Hub SDK using UWP apps a different approach can be taken for message processing, since AMQP supports server push when receiving cloud-to-device messages, and it enables immediate pushes of messages from IoT Hub to the device. The following [article](https://azure.microsoft.com/en-us/documentation/articles/iot-hub-csharp-csharp-c2d/) explains how to handle cloud-to-device messages using AMQP.
+
+
+	> **If you are at the Launch Event enter the following code instead since we are not using a FEZ Hat.**
+
+		````C#
+	private async void CommandsTimer_Tick(object sender, object e)
+	{
+		string message = await ReceiveMessage();
+
+		if (message != string.Empty)
+		{
+			System.Diagnostics.Debug.WriteLine("Command Received: {0}", message);
+			switch (message.ToUpperInvariant())
+			{
+				//Do Something with the Display Button
+				
+			}
+		}
+	}
+	````
 
 <a name="Ex4Task2"></a>
 #### Task 2 - Processing IoT Hub received messages ####
